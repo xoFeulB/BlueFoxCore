@@ -1,0 +1,36 @@
+{
+    "manifest_version": 3,
+    "name": "^.,.^ BlueFoxCore",
+    "version": "1.0.0",
+    "description": "^.,.^ BlueFoxCore",
+    "host_permissions": [
+        "<all_urls>"
+    ],
+    "permissions": [
+        "cookies",
+        "tabs",
+        "debugger"
+    ],
+    "background": {
+        "service_worker": "/src/js/background/service_worker.js",
+        "type": "module"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "/src/js/modules/css-selector-generator/css-selector-generator.js",
+                "/src/js/content_scripts/document_start.js",
+                "/src/js/modules/BlueFoxJs/bluefox.min.js"
+            ],
+            "run_at": "document_start"
+        }
+    ],
+    "icons": {
+        "16": "/media/icons/16.png",
+        "48": "/media/icons/48.png",
+        "128": "/media/icons/128.png"
+    }
+}

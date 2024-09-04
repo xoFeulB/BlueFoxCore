@@ -1,0 +1,25 @@
+{
+  "private": true,
+  "name": "@xofeulb/bluefox-core-server",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./src/index.js"
+    },
+    "./GateServer": {
+      "import": "./src/gate.js"
+    },
+    "./WorkspaceServer": {
+      "import": "./src/workspace.js"
+    }
+  },
+  "scripts": {},
+  "author": "BlueFoxEnterprise",
+  "dependencies": {
+    "open": "^10.0.4",
+    "glob": "^10.3.10",
+    "ws": "^8.16.0"
+  }
+}
