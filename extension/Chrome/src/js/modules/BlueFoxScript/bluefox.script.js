@@ -175,6 +175,13 @@ class Tab {
       parameters
     );
   }
+  async setDownloadBehavior(parameters) {
+    // https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-setDownloadBehavior
+    return await this.sendCommand(
+      "Page.setDownloadBehavior",
+      parameters
+    );
+  }
   async sendCommand(method, params) {
     return chrome.runtime.sendMessage(
       {
