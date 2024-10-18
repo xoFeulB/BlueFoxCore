@@ -43,18 +43,18 @@ export class BlueFoxCoreServer {
     });
 
     this.gateServer = new GateServer(this.wsWorkspaceGatePort, this.httpGatePort, this.wsGatePort);
-    this.workspaceServer = new WorkspaceServer(workspacePath, `ws://localhost.bluefox.ooo:${this.wsWorkspaceGatePort}`);
+    this.workspaceServer = new WorkspaceServer(workspacePath, `ws://localhost:${this.wsWorkspaceGatePort}`);
     this.gateServer.start();
     this.workspaceServer.start();
     await this.writeOutConfig();
   }
 
   async writeOutConfig() {
-    await fs.writeFileSync(`${this.BlueFoxCoreExtensionDir}\\Chrome\\src\\json\\config.json`,
+    await fs.writeFileSync(`${this.BlueFoxCoreExtensionDir}/Chrome/src/json/config.json`,
       JSON.stringify({
-        "BlueFoxCoreServer": `ws://localhost.bluefox.ooo:${this.wsCoreServerPort}`,
-        "BluefoxGateHttpServer": `http://localhost.bluefox.ooo:${this.httpGatePort}`,
-        "BluefoxGateWebSocketServer": `ws://localhost.bluefox.ooo:${this.wsGatePort}`
+        "BlueFoxCoreServer": `ws://localhost:${this.wsCoreServerPort}`,
+        "BluefoxGateHttpServer": `http://localhost:${this.httpGatePort}`,
+        "BluefoxGateWebSocketServer": `ws://localhost:${this.wsGatePort}`
       }), "utf-8");
   }
 
@@ -63,14 +63,20 @@ export class BlueFoxCoreServer {
       app: {
         name: apps.chrome,
         arguments: headless ? [
-          `--user-data-dir=${this.UserDataDir}`,
-          `--load-extension=${this.BlueFoxCoreExtensionDir}\\Chrome`,
+          `--disable-dev-shm-usage`,
+          `--disable-blink-features=AutomationControlled`,
+          `--no-sandbox`,
           `--headless=new`,
+          `--disable-gpu`,
+          `--user-data-dir=${this.UserDataDir}`,
+          `--load-extension=${this.BlueFoxCoreExtensionDir}/Chrome`,
           `--window-size=${windowSize}`,
           `--remote-debugging-port=${this.httpDebugPort}`,
         ] : [
+          `--no-sandbox`,
+          `--disable-gpu`,
           `--user-data-dir=${this.UserDataDir}`,
-          `--load-extension=${this.BlueFoxCoreExtensionDir}\\Chrome`,
+          `--load-extension=${this.BlueFoxCoreExtensionDir}/Chrome`,
           `--window-size=${windowSize}`,
           `--remote-debugging-port=${this.httpDebugPort}`,
         ]

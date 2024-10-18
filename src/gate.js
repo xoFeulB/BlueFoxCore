@@ -132,7 +132,7 @@ export class GateServer {
               type: "RunScript",
               content: buf
             }
-          )).result;
+          ));
         }
         this.BlueFoxClients[webSocket.id] = {
           webSocket: webSocket,
