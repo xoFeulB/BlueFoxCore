@@ -50,6 +50,7 @@ export class BlueFoxCoreServer {
   }
 
   async writeOutConfig() {
+    await fs.mkdirSync(`${this.BlueFoxCoreExtensionDir}/Chrome/src/json/`, { recursive: true });
     await fs.writeFileSync(`${this.BlueFoxCoreExtensionDir}/Chrome/src/json/config.json`,
       JSON.stringify({
         "BlueFoxCoreServer": `ws://localhost:${this.wsCoreServerPort}`,
